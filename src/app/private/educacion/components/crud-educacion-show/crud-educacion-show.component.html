@@ -1,0 +1,106 @@
+<div class="mb-3 mt-3 cardTabla">
+  <div class="card-header">
+    <h5 class="text-center">Articulos educativos</h5>
+  </div>
+  <div class="card-body">
+    <p-table #dt1 [value]="articlesList" dataKey="id" responsiveLayout="scroll" styleClass="p-datatable-sm" [rows]="10"
+             [showCurrentPageReport]="true" [rowHover]="true" [rowsPerPageOptions]="[10, 50, 100]" [loading]="loading"
+             [paginator]="true" [filterDelay]="0"
+             currentPageReportTemplate="Mostrando {first} a {last} de un total {totalRecords} elementos"
+             (sortFunction)="customSort($event)" [customSort]="true" [globalFilterFields]="['titulo']">
+      <ng-template pTemplate="header" let-columns="columns">
+        <tr>
+          <th pSortableColumn="" id="titulo" style="text-align: center">
+            Titulo
+          </th>
+          <th pSortableColumn="" id="descripcion" style="text-align: center">
+            Descripción
+          </th>
+          <th pSortableColumn="" id="fechaCreacion" style="text-align: center">
+            Fecha de creación
+          </th>
+          <th pSortableColumn="" id="fuente" style="text-align: center">
+            Fuente
+          </th>
+          <th pSortableColumn="" id="etiqueta" style="text-align: center">
+            Etiqueta
+          </th>
+          <th pSortableColumn="" id="accion" style="text-align: center">
+            Acción
+          </th>
+        </tr>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col" style="text-align: center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              label="Agregar"
+              class="p-button-success p-button-sm"
+              icon="pi pi-plus"
+              (click)="addArticle()">
+            </button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td>
+            {{rowData.titulo}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.descripcion}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.fechaCreacion?.toDate() | date:'medium'}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.fuente}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.etiqueta}}
+          </td>
+          <td style="text-align: center">
+            <div class="d-flex justify-content-center">
+              <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded"
+                      (click)="editArticle($event,rowData)"></button>&nbsp;
+              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+                      (click)="showDeleteArticle($event, rowData)"></button>&nbsp;
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-dialog header="Agregar articulo" [(visible)]="displayAddArticle" [style]="{width: '70vw'}" [modal]="true"
+            [maximizable]="false" [draggable]="false">
+    <div class="stepsdemo-content">
+      <app-steps-educacion [displayAdd]="displayAddArticle" (closeDialogEvent)="changeDisplaySteps($event)"></app-steps-educacion>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="Editar articulo" [(visible)]="displayEditArticle" [style]="{width: '70vw'}" [modal]="true"
+            [maximizable]="false"
+            [draggable]="false">
+    <div class="stepsdemo-content">
+      <app-steps-educacion [articleSelectedToEdit]="articleToEdit" [formEdit]="editForm" [displayEdit]="displayEditArticle" (closeDialogEvent)="changeDisplaySteps($event)"></app-steps-educacion>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="Eliminar adopción" [(visible)]="displayDeleteArticle" [style]="{width: '40vw'}" [modal]="true"
+            [maximizable]="false"
+            [draggable]="false" [closable]="false">
+    <div class="mb-3">
+      <label class="form-label">Desea eliminar este articulo?</label>
+    </div>
+    <button type="submit" style="margin: 10px" class="btn btn-primary" (click)="deleteArticle()">Confirmar</button>
+    <button type="submit" style="margin: 10px" class="btn btn-secondary" (click)="displayDeleteArticle=false">Cancelar</button>
+  </p-dialog>
+
+</div>

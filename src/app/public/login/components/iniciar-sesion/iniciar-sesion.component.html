@@ -1,0 +1,87 @@
+<body>
+  <div class="container">
+      <div class="forms">
+          <div class="form login">
+              <span class="title">Iniciar Sesión</span>
+
+              <form action="#">
+                  <div class="input-field" >
+                      <input [(ngModel)]="credenciales.email" name="email" type="text" placeholder="Ingresa tu correo" required>
+                      <i class='bx bx-envelope icon'></i>
+                  </div>
+                  <div class="input-field">
+                      <input [(ngModel)]="credenciales.password" name="password" autocomplete="" type="password" class="password" placeholder="Ingresa tu contraseña" required>
+                      <i class='bx bx-lock-alt icon'></i>
+                      <i class='bx bx-low-vision showHidePw'></i>
+                  </div>
+
+                  <div class="checkbox-text">
+                      <div class="checkbox-content">
+                          <input type="checkbox" id="logCheck">
+                          <label for="logCheck" class="text">Recuerdame</label>
+                      </div>
+
+                      <a href="#" class="text">¿Olvidaste tu contraseña?</a>
+                  </div>
+
+                  <div class="input-field button">
+                      <input type="button" value="Iniciar" (click)="login()">
+                  </div>
+                  <div class="input-field button">
+                    <input type="button" value="Iniciar con Google" (click)="loginWithGoogle()">
+                  </div>
+              </form>
+
+              <div class="login-signup">
+                  <span class="text">¿Sin cuenta?
+                      <a  class="text signup-link">Regístrate</a>
+                  </span>
+              </div>
+          </div>
+
+          <!-- Registration Form -->
+          <div class="form signup">
+              <span class="title">Registro</span>
+
+              <form action="#">
+                  <div class="input-field">
+                      <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" type="text" placeholder="Ingresa tu nombre" required>
+                      <i class='bx bx-user'></i>
+                  </div>
+                  <div class="input-field">
+                      <input [(ngModel)]="nuevoUsuario.email" name="email" type="text" placeholder="Ingresa tu correo" required>
+                      <i class='bx bx-envelope icon'></i>
+                  </div>
+                  <div class="input-field">
+                      <input [(ngModel)]="nuevoUsuario.password" name="password" type="password" class="password" autocomplete="" placeholder="Crea una contraseña" required>
+                      <i class='bx bx-lock-alt icon'></i>
+                  </div>
+                  <div class="input-field">
+                      <input type="password" class="password" autocomplete="" placeholder="Confirmar contraseña" required>
+                      <i class='bx bx-lock-alt icon'></i>
+                      <i class='bx bx-low-vision showHidePw'></i>
+                  </div>
+
+                  <div class="checkbox-text">
+                      <div class="checkbox-content">
+                          <input type="checkbox" id="sigCheck">
+                          <label for="sigCheck" class="text">Recuérdame</label>
+                      </div>
+
+                      <a href="#" class="text">¿Olvidaste tu contraseña?</a>
+                  </div>
+
+                  <div class="input-field button">
+                      <input type="button" value="Registrarse" (click)="registrarse()">
+                  </div>
+              </form>
+
+              <div class="login-signup">
+                  <span class="text">¿Ya tienes cuenta?
+                      <a  class="text login-link">Inicia Sesión</a>
+                  </span>
+              </div>
+          </div>
+      </div>
+  </div>
+</body>

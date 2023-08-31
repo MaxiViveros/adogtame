@@ -1,0 +1,79 @@
+footer {
+    background-image: linear-gradient(180deg, #973333 1%, rgba(35, 34, 32, 0.13) 100%), url("/assets/img/gatito.jpg");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+}
+
+.btn-primary {
+    border-color: transparent;
+}
+
+input {
+    color: #00898f;
+    border-radius: 30px 30px 30px 30px;
+    width: 100%;
+    font-weight: 400;
+    border-width: 0;
+    -webkit-appearance: none;
+    padding: 14px 4% !important;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.708);
+    overflow: hidden;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
+
+#footer-h2 {
+    font-family: 'Lora', Georgia, "Times New Roman", serif !important;
+    font-weight: 700 !important;
+    font-size: 30px !important;
+    line-height: 1.2em !important;
+    padding-top: 10px;
+}
+
+#footer-parrafo {
+    font-family: 'Lora', Georgia, "Times New Roman", serif;
+    line-height: 2em;
+    font-weight: 500;
+    font-size: 20px;
+    max-width: 500px;
+}
+
+#footer-submit-btn {
+    flex-basis: 100%;
+    font-size: 100%;
+    line-height: 2em;
+    font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif !important;
+    font-weight: 500;
+    max-width: 500px;
+    color: #fff !important;
+    text-align: center;
+    border-width: 15px !important;
+    border-color: rgba(210, 159, 104, 0);
+    border-radius: 59px;
+    letter-spacing: 3px;
+    font-size: 16px;
+    text-transform: uppercase !important;
+    background-color: #8f4a006e;
+    padding: 0.3em 1em !important;
+    display: block;
+    color: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    line-height: 1.7em !important;
+}
+
+#footer-div-btn {
+    max-width: 500px;
+    width: 100%;
+}
+
+.img-fluid {
+    background-color: transparent;
+    width: 100%;
+}

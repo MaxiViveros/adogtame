@@ -1,0 +1,183 @@
+// PERRITO ANIMADO
+// all animals have this default setup for body, face and features elements
+// saves setting it up each time
+.body {
+	width: 90px;
+	height: 100px;
+
+	&, &:before, &:after {
+	position: absolute;
+	}
+	&:before, &:after {
+	content: '';
+	}
+}
+	.face,
+	.features {
+		&, &:before, &:after {
+			position: absolute;
+		}
+		&:before, &:after {
+			content: '';
+		}
+	}
+
+// Specific styles
+
+$defaultBodyColor: #e6ac4c;
+
+//Slanted Body
+.bodySlant {
+	background-color: $defaultBodyColor;
+	border-radius: 4px;
+	transform-origin: 50% 100%;
+	transform: perspective(300px) rotateX(20deg);
+}
+
+.earsBasic {
+	// A basic style for Ears
+	&:before,
+	&:after {
+		width: 0;
+		height: 0;
+
+		top: -25px;
+
+		border-top: 28px solid transparent;
+		border-bottom: 20px solid transparent;
+	}
+
+	&:before {
+		border-left: 20px solid $defaultBodyColor;
+		left: 0;
+	}
+	&:after {
+		border-right: 20px solid $defaultBodyColor;
+		right: 0;
+	}
+}
+
+// dog
+$dogBodyColor : #EDB571;
+
+.dog {
+	background-color: $dogBodyColor;
+	left: 20%;
+	margin-top: 4%;
+	z-index: 2;
+	// Ears
+	&:before {
+		top: -28px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 30px solid $dogBodyColor;
+		border-radius: 30% 0 0 / 40% 40% 0 0;
+
+		border-top: 28px solid transparent;
+		border-bottom: 20px solid transparent;
+	}
+	&:after {
+		right: 0;
+		z-index: -5;
+		border-right: 30px solid #a3701d;
+		border-radius: 0 15px 0 0;
+	}
+
+	.face {
+		//eyes and nose
+		top: 22%;
+		left: 22%;
+		width: 6px;
+		height: 6px;
+
+		background-color: #000;
+		border-radius: 50%;
+
+		box-shadow: 44px 0 #000,
+			19px 15px #000,
+			21px 15px #000,
+			23px 15px #000,
+			25px 15px #000,
+
+			22px 18px #000;
+
+		// Mouth
+		&:before,
+		&:after {
+			top: 14px;
+			left: 6px;
+			width: 16px;
+			height: 20px;
+			border-radius: 50% / 40%;
+			border-right: 2px solid #000;
+			border-bottom: 2px solid #000;
+			border-left: 2px solid transparent;
+			border-top: 2px solid transparent;
+
+			box-shadow: 0px 0px #000;
+		}
+		&:after {
+			left: 24px;
+			transform: rotateY(180deg);
+		}
+	}
+
+	.features {
+		// Patch over right eye
+		right: 6px;
+		top: 5px;
+		z-index: -1;
+		width: 30px;
+		height: 35px;
+		background-color: #e9e9e9;
+
+		border-radius: 50% 40% 40% 50% / 30% 30% 30% 30%;
+
+		//tongue
+		&:after {
+			top: 51px;
+			right: 34px;
+			width: 10px;
+			height: 10px;
+
+			background-color: #df4f4f;
+			border-radius: 0 0 50% 50%;
+
+			animation: tongue 1s infinite ease-in;
+		}
+		//tail
+		&:before {
+			top: 35px;
+			right: -35px;
+			z-index: -1;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 5px solid #a3701d;
+			border-left: 0;
+			border-top: 0;
+
+			box-shadow: 3px 0 #f1f1f1,
+			6px 5px #a3701d,
+			9px 5px #f1f1f1,
+			10px 12px #a3701d;
+
+			animation: wag 5s infinite ease-in-out;
+		}
+	}
+}
+
+
+@keyframes tongue {
+	0% { height: 10px; }
+	50% { height: 13px; }
+}
+@keyframes wag {
+	10% { top: 25px; right: -30px; transform: rotate(-20deg); }
+	20% { top: 35px; right: -35px; transform: rotate(0); }
+	30% { top: 25px; right: -30px; transform: rotate(-20deg); }
+	40% { top: 35px; right: -35px; transform: rotate(0); }
+	50% { top: 30px; right: -32px; transform: rotate(-10deg); }
+	60% { top: 35px; right: -35px; transform: rotate(0); }
+}

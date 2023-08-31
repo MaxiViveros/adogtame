@@ -1,0 +1,19 @@
+.cardTabla {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  text-align: center;
+  max-width: 1200px;
+  width: auto;
+  margin: auto auto;
+}
+.container-buttons {
+  display: flex;
+  justify-content: space-between;
+  .button {
+    padding: 0 4rem;
+  }
+  .container-nextback {
+    display: flex;
+    justify-content: space-between;
+  }
+
+}

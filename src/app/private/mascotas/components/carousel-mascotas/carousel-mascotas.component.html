@@ -1,0 +1,26 @@
+<p-carousel [value]="imagesList" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+  <ng-template let-image pTemplate="item">
+    <div class="product-item">
+      <div class="product-item-content">
+        <div class="mb-3">
+          <img [src]="image.url" style="width: 250px; height: 250px" class="product-image" />
+        </div>
+        <div>
+          <div class="car-buttons mt-5">
+            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="displayDelete(image)"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>
+
+<!-- MODAL ELIMINAR MASCOTA -->
+<p-dialog header="Eliminar imagen" [(visible)]="displayDeleteImage" [style]="{width: '30vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false" [resizable]="false">
+  <div class="mb-3">
+    <label class="form-label">Eliminar imagen?</label>
+  </div>
+  <button type="submit" style="margin: 10px" class="btn btn-primary" (click)="deleteImage()">Confirmar</button>
+  <button type="submit" style="margin: 10px" class="btn btn-secondary" (click)="displayDeleteImage=false">Cancelar</button>
+</p-dialog>

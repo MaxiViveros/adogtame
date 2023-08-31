@@ -1,0 +1,182 @@
+<div class="mb-3 mt-3 cardTabla">
+  <div class="card-header">
+    <h5>Lista De Veterinarias 👨🏻‍⚕️</h5>
+  </div>
+  <div class="card-body">
+    <p-table #ct [value]="listVets" dataKey="id" responsiveLayout="scroll" styleClass="p-datatable-sm" [rows]="10"
+             [showCurrentPageReport]="true" [rowHover]="true" [rowsPerPageOptions]="[10, 50, 100]" [loading]="loading"
+             [paginator]="true" [filterDelay]="0" currentPageReportTemplate="Mostrando {first} a {last} de un total {totalRecords} elementos"
+             (sortFunction)="customSort($event)" [customSort]="true" [globalFilterFields]="['titulo']">
+      <ng-template pTemplate="header" let-columns="columns">
+        <tr>
+          <th pSortableColumn="" id="nombre" style="text-align: center">
+            Nombre
+          </th>
+          <th pSortableColumn="" id="direccion" style="text-align: center">
+            Dirección
+          </th>
+          <th pSortableColumn="" id="telefono" style="text-align: center">
+            Telefono
+          </th>
+          <th pSortableColumn="" id="correo" style="text-align: center">
+            Correo
+          </th>
+          <th pSortableColumn="" id="web" style="text-align: center">
+            Página Web
+          </th>
+          <th pSortableColumn="" id="accion" style="text-align: center">
+            Acción
+          </th>
+        </tr>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col" style="text-align: center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              label="Agregar"
+              class="p-button-success p-button-sm"
+              icon="pi pi-plus"
+              (click)="addVeterinaria()">
+            </button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td>
+            {{rowData.nombre}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.direccion}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.telefono}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.correo}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.paginaWeb}}
+          </td>
+          <td style="text-align: center">
+            <div class="d-flex justify-content-center">
+              <button pButton pRipple type="button" icon="pi pi-pencil"  class="p-button-rounded" (click)="editVeterinaria($event,rowData)"></button>&nbsp;
+              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="showDeleteVet(rowData)"></button>&nbsp;
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-dialog header="📝 Agregar Veterinaria" [(visible)]="displayAddVet" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false"
+            [draggable]="false" [closable]="false">
+    <div class="stepsdemo-content">
+      <form [formGroup]="newVetForm" (ngSubmit)="submitVet()" novalidate style="text-align: left;">
+        <div class="mb-3">
+          <label class="form-label">✏️ Nombre</label>
+          <input formControlName="nombre" type="text" class="form-control" required>
+          <div *ngIf="!newVetForm.value.nombre">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">📍 ️Dirección</label>
+          <input formControlName="direccion" type="text" class="form-control" required>
+          <div *ngIf="!newVetForm.value.direccion">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="basic">📞 Telefono</label> <br>
+          <input formControlName="telefono" type="text" class="form-control" required>
+          <div *ngIf="!newVetForm.value.telefono">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="basic">📧 Correo</label> <br>
+          <input id="correo" type="text" class="form-control" formControlName="correo" required>
+          <div *ngIf="!newVetForm.value.correo">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="basic">🔗 Página Web</label> <br>
+          <input id="paginaWeb" type="text" class="form-control" formControlName="paginaWeb" required>
+          <div *ngIf="!newVetForm.value.paginaWeb">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+      </form>
+      <div class="container-buttons">
+        <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+        <button pButton pRipple style="margin: 10px" (click)="save()" type="button" label="Guardar" class="p-button-rounded p-button-sm"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="✏️ Editar Veterinaria" [(visible)]="displayEditVet" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false"
+            [draggable]="false" [closable]="false">
+    <div class="stepsdemo-content">
+      <form [formGroup]="editVetForm" (ngSubmit)="submitVet()" novalidate style="text-align: left;">
+        <div class="mb-3">
+          <label class="form-label">✏️ Nombre</label>
+          <input formControlName="nombre" type="text" class="form-control" required>
+          <div *ngIf="!editVetForm.value.nombre">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">📍 ️Dirección</label>
+          <input formControlName="direccion" type="text" class="form-control" required>
+          <div *ngIf="!editVetForm.value.direccion">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="basic">📞 Telefono</label> <br>
+          <input formControlName="telefono" type="text" class="form-control" required>
+          <div *ngIf="!editVetForm.value.telefono">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="basic">📧 Correo</label> <br>
+          <input id="correo" type="text" class="form-control" formControlName="correo" required>
+          <div *ngIf="!editVetForm.value.correo">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="basic">🔗 Página Web</label> <br>
+          <input id="paginaWeb" type="text" class="form-control" formControlName="paginaWeb" required>
+          <div *ngIf="!editVetForm.value.paginaWeb">
+            <small class="p-error">Incompleto</small>
+          </div>
+        </div>
+      </form>
+      <div class="container-buttons">
+        <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+        <button pButton pRipple style="margin: 10px" (click)="updateVeterinaria()" type="button" label="Guardar" class="p-button-rounded p-button-sm"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="❌ Eliminar Veterinaria" [(visible)]="displayDeleteVet" [style]="{width: '40vw'}" [modal]="true" [maximizable]="false"
+            [draggable]="false" [closable]="false">
+    <div class="mb-3">
+      <label class="form-label">Desea eliminar esta veterinaria?</label>
+    </div>
+    <button type="submit" style="margin: 10px" class="btn btn-primary" (click)="deleteVet()">Confirmar</button>
+    <button type="submit" style="margin: 10px" class="btn btn-secondary" (click)="displayDeleteVet=false">Cancelar</button>
+  </p-dialog>
+
+</div>
+

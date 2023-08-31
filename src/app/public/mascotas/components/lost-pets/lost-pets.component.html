@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-body">
+    <p-dataView #dv [value]="listOfPets" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
+                [sortOrder]="sortOrder" layout="list">
+      <ng-template pTemplate="header">
+      </ng-template>
+      <ng-template let-pet pTemplate="listItem">
+        <div class="col-12">
+          <div class="row product-list-item">
+            <div class="col-md-auto">
+              <img class="img-fluid" [src]="pet.urlImage" [alt]="pet.nombre"
+                   style="border-radius: 15px; width: 200px; height: 200px"/>
+            </div>
+            <div class="col-md-auto product-list-detail">
+              <div class="product-name">✏️ Nombre: {{pet.nombre}}</div>
+              <div class="product-edad">#️⃣ Edad: {{pet.edad}}</div>
+              <div class="pet-sex">🚻 Sexo: {{pet.sexo}}</div>
+              <div class="pet-type">🏷 Tipo De Mascota: {{pet.tipo}}</div>
+              <div class="pet-type">🕵🏻 Tipo De Caso: {{pet.tipoCaso}}</div>
+              <div class="pet-type">👀 Observaciones: {{pet.observaciones}}</div>
+              <i class="bx bxs-dog product-category-icon"></i><span class="product-category">{{pet.raza}}</span>
+            </div>
+            <div class="col-md-auto product-list-action">
+              <button pButton pRipple type="button" icon="pi pi-images" label="Más fotos"
+                      class="p-button-rounded p-button-secondary p-button-sm" (click)="showCarouselModal(pet)"></button>
+            </div>
+            <div class="col-md-auto product-list-action">
+              <button pButton pRipple type="button" style="background-color: #973333" icon="pi pi-phone"
+                      label="Contacto" class="p-button-rounded p-button-sm" (click)="routerToContact(pet)"></button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+</div>
+
+<p-dialog header="Fotos" [(visible)]="displayCarousel" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false">
+  <p-carousel [value]="listOfImagesAux" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <ng-template let-image pTemplate="item">
+      <div class="product-item">
+        <div class="product-item-content">
+          <div class="mb-3">
+            <img [src]="image.url" style="width: 300px; height: 300px" class="product-image"  alt=""/>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+  <div class="container-buttons" style="text-align: center">
+    <button pButton pRipple style="margin: 10px; background-color: #973333" type="submit" label="Salir" class="p-button-rounded p-button-danger p-button-sm" (click)="closeCarousel()"></button>
+  </div>
+</p-dialog>
+
+<p-dialog header="ℹ️ Información De Contacto" [(visible)]="showCasoExternoModal" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false">
+  <h3>Este es un caso externo a la fundación, por lo que aquí te dejamos la información de contacto para adoptar a esta mascota:</h3>
+  <br>
+  <p>📱️ Telefono: {{contactoPetSelected}}</p>
+  <div class="container-buttons" style="text-align: center">
+    <button pButton pRipple style="margin: 10px; background-color: #973333" type="submit" label="Salir" class="p-button-rounded p-button-danger p-button-sm" (click)="showCasoExternoModal=false"></button>
+  </div>
+</p-dialog>

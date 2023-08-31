@@ -1,0 +1,12 @@
+.container-buttons {
+  display: flex;
+  justify-content: space-between;
+  .button {
+    padding: 0 4rem;
+  }
+  .container-nextback {
+    display: flex;
+    justify-content: space-between;
+  }
+
+}

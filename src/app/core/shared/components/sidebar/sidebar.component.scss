@@ -1,0 +1,217 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: var(--subpanel-color);
+  z-index: 100;
+  transition: var(--tran-05);
+}
+.sidebar.close{
+  width: 78px;
+}
+
+/* Logo y nombre */
+.sidebar .logo-details{
+  height: 78px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.sidebar .logo-details .logo-image{
+  display: flex;
+  justify-content: center;
+  height: 70px;
+  min-width: 70px;
+  text-align: center;
+  line-height: 70px;
+}
+.sidebar .logo-image img{
+  object-fit: cover;
+  border-radius: 50%;
+}
+.sidebar .logo-details .logo_name{
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-left: 14px;
+  transition: var(--tran-03);
+  transition-delay: 0.1s;
+}
+.sidebar.close .logo-details .logo_name{
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Menú */
+.sidebar .nav-links{
+  height: 100%;
+  padding: 30px 0 200px 0;
+  overflow: auto;
+}
+.sidebar.close .nav-links{
+  overflow: visible;
+}
+.sidebar .nav-links::-webkit-scrollbar{
+  display: none;
+}
+.sidebar .nav-links li{
+  position: relative;
+  list-style: none;
+  transition: var(--tran-04);
+}
+.sidebar .nav-links li:hover{
+  background: var(--panel-color);
+}
+.sidebar .nav-links li .icon-link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar.close .nav-links li .icon-link{
+  display: block;
+}
+.sidebar .nav-links li i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: var(--text-color);
+  font-size: 30px;
+  cursor: pointer;
+  transition: var(--tran-03);
+}
+.sidebar .nav-links li.showMenu i.arrow{
+  transform: rotate(-180deg);
+}
+.sidebar.close .nav-links i.arrow{
+  display: none;
+}
+.sidebar .nav-links li a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.sidebar .nav-links li a .link-name{
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+.sidebar.close .nav-links li a .link-name{
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li .sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: var(--panel-color);
+  display: none;
+}
+.sidebar .nav-links li.showMenu .sub-menu{
+  display: block;
+}
+.sidebar .nav-links li .sub-menu a{
+  color: var(--text-color);
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: var(--tran-04);
+}
+.sidebar .nav-links li .sub-menu a:hover{
+  opacity: 1;
+}
+.sidebar.close .nav-links li .sub-menu{
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar.close .nav-links li:hover .sub-menu{
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: var(--tran-04);
+}
+.sidebar .nav-links li .sub-menu .link-name{
+  display: none;
+}
+.sidebar.close .nav-links li .sub-menu .link-name{
+  display: none;
+  font-size: 18px;
+  opacity: 1;
+  display: block;
+}
+.sidebar .nav-links li .sub-menu.blank{
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li:hover .sub-menu.blank{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Redes Sociales*/
+/* .sidebar .networks-details{
+  position: fixed;
+  width: 260px;
+  bottom: 0;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  background-color: var(--subpanel-color);
+  transition: var(--tran-05);
+}
+.sidebar.close .networks-details{
+  width: 78px;
+}
+.sidebar .networks-details li i{
+  height: 23px;
+  line-height: 23px;
+  font-size: 18px;
+}
+.sidebar .networks-details li a .link-name{
+  font-size: 18px;
+  font-weight: 300;
+} */
+
+/* Botón del sidebar */
+.sidebar .btn-content{
+  position: fixed;
+  top: calc(100%/2);
+  left: calc(260px - 22px);
+  transition: var(--tran-05);
+}
+.sidebar.close .btn-content{
+  left: calc(78px - 22px);
+}
+.sidebar .btn-content i{
+  color: var(--text-color);
+  font-size: 22px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+.sidebar.close .btn-content i{
+  transform: rotate(180deg);
+}

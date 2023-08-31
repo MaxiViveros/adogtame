@@ -1,0 +1,29 @@
+<div class="sticky-button">
+    <div class="profile-button" *ngIf="logged">
+        <ul>
+            <li [ngClass]="abierto ? 'nr_li dd_main active': 'nr_li dd_main'" (click)="abrirUsuario()">
+                <img src="./assets/images/perfil.jpg" alt="profile_img">
+
+                <div class="dd_menu">
+                    <div class="dd_left">
+                        <ul>
+                            <li><i class='bx bxs-user-detail'></i></li>
+                            <li><i class='bx bxs-cog'></i></li>
+                            <li><i class='bx bx-log-out'></i></li>
+                        </ul>
+                    </div>
+                    <div class="dd_right">
+                        <ul>
+                            <li (click)="perfil()">Perfil</li>
+                            <li>Ajustes</li>
+                            <li (click)="cerrarSesion()">Logout</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="!logged">
+        <button (click)="verLogin()" class="login-button" role="button">Iniciar Sesión</button>
+    </div>
+</div>

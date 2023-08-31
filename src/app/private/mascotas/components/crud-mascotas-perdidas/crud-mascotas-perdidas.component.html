@@ -1,0 +1,129 @@
+<div class="mb-3 mt-3 cardTabla">
+  <div class="card-header">
+    <h5>Lista De Mascotas Perdidas 🐾</h5>
+  </div>
+  <div class="card-body">
+    <p-table #ct [value]="listOfLostPets" dataKey="id" responsiveLayout="scroll" styleClass="p-datatable-sm" [rows]="10"
+    [showCurrentPageReport]="true" [rowHover]="true" [rowsPerPageOptions]="[10, 50, 100]" [loading]="loading"
+    [paginator]="true" [filterDelay]="0" currentPageReportTemplate="Mostrando {first} a {last} de un total {totalRecords} elementos"
+    (sortFunction)="customSort($event)" [customSort]="true" [globalFilterFields]="['titulo']">
+      <ng-template pTemplate="header" let-columns="columns">
+        <tr>
+          <th pSortableColumn="" id="nombre" style="text-align: center">
+            Nombre
+          </th>
+          <th pSortableColumn="" id="edad" style="text-align: center">
+            Edad
+          </th>
+          <th pSortableColumn="" id="raza" style="text-align: center">
+            Raza
+          </th>
+          <th pSortableColumn="" id="sexo" style="text-align: center">
+            Sexo
+          </th>
+          <th pSortableColumn="" id="tipo" style="text-align: center">
+            Tipo De Mascota
+          </th>
+          <th pSortableColumn="" id="casoTipo" style="text-align: center">
+            Tipo De Caso
+          </th>
+          <th pSortableColumn="" id="etiqueta" style="text-align: center">
+            Etiqueta
+          </th>
+          <th pSortableColumn="" id="contacto" style="text-align: center">
+            Contacto
+          </th>
+          <th pSortableColumn="" id="observaciones" style="text-align: center">
+            Observaciones
+          </th>
+          <th pSortableColumn="" id="accion" style="text-align: center">
+            Acción
+          </th>
+        </tr>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col" style="text-align: center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              label="Agregar"
+              class="p-button-success p-button-sm"
+              icon="pi pi-plus"
+              (click)="addPet()">
+            </button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td>
+            {{rowData.nombre}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.edad}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.raza}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.sexo}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.tipo}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.tipoCaso}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.etiqueta}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.contacto}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.observaciones}}
+          </td>
+          <td style="text-align: center">
+            <div class="d-flex justify-content-center">
+              <button pButton pRipple type="button" icon="pi pi-pencil" styleClass="p-button-sm" class="p-button-rounded" (click)="editPet($event,rowData)"></button>&nbsp;
+              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="showDeleteLostPet($event, rowData)"></button>&nbsp;
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- MODAL AGREGAR MASCOTA -->
+  <p-dialog header="🐾 Agregar mascota perdida" [(visible)]="displayAddLostPet" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false"
+    [draggable]="false" [closable]="false" [resizable]="false">
+    <div class="stepsdemo-content">
+      <app-steps-mascotas [displayAdd]="displayAddLostPet" (closeDialogEvent)="changeDisplaySteps($event)"></app-steps-mascotas>
+    </div>
+  </p-dialog>
+  <!-- MODAL EDITAR -->
+  <p-dialog header="✏️ Editar mascota perdida" [(visible)]="displayEditLostPet" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false"
+    [draggable]="false" [closable]="false" [resizable]="false">
+    <div class="stepsdemo-content">
+      <app-steps-mascotas [petSelectedToEdit]="lostPetSelectedToEdit" [formEdit]="lostPetFormEdit" [displayEdit]="displayEditLostPet" (closeDialogEvent)="changeDisplaySteps($event)"></app-steps-mascotas>
+    </div>
+  </p-dialog>
+  <!-- MODAL ELIMINAR MASCOTA -->
+  <p-dialog header="❌ Eliminar mascota perdida" [(visible)]="displayDeleteLostPet" [style]="{width: '40vw'}" [modal]="true" [maximizable]="false"
+  [draggable]="false" [closable]="false" [resizable]="false">
+    <div class="mb-3">
+      <label class="form-label">Desea eliminar esta mascota perdida?</label>
+    </div>
+    <button type="submit" style="margin: 10px" class="btn btn-primary" (click)="deleteLostPet()">Confirmar</button>
+    <button type="submit" style="margin: 10px" class="btn btn-secondary" (click)="displayDeleteLostPet=false">Cancelar</button>
+  </p-dialog>
+
+</div>

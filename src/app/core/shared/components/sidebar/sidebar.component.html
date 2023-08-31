@@ -1,0 +1,113 @@
+<div class="sidebar close">
+    <div class="logo-details" (click)="navegarHacia('home')">
+        <div class="logo-image">
+            <img src="./assets/img/icon/adogtame-logo1.png" alt="">
+        </div>
+        <span class="logo_name">Adogtame</span>
+    </div>
+
+    <ul class="nav-links">
+        <li>
+            <a (click)="navegarHacia('home')">
+                <i class='bx bx-home-alt'></i>
+                <span class="link-name">Home</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" (click)="navegarHacia('home')">Home</a></li>
+            </ul>
+        </li>
+        <li>
+            <a (click)="navegarHacia('home')">
+                <i class='bx bxs-dog'></i>
+                <span class="link-name">Mascotas</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" (click)="navegarHacia('mascotas')">Mascotas</a></li>
+            </ul>
+        </li>
+
+        <li name="dropdown" (click)="abrirSubMenu(0)">
+            <div class="icon-link">
+                <a>
+                    <i class='bx bx-news'></i>
+                    <span class="link-name">Novedades</span>
+                </a>
+                <i class='bx bx-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link-name">Novedades</a></li>
+                <li><a (click)="navegarHacia('eventos')">Eventos</a></li>
+                <li><a (click)="navegarHacia('home')">Educación</a></li>
+            </ul>
+        </li>
+
+        <li name="dropdown" (click)="abrirSubMenu(1)">
+            <div class="icon-link">
+                <a>
+                    <i class='bx bx-donate-heart'></i>
+                    <span class="link-name">Aportar</span>
+                </a>
+                <i class='bx bx-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link-name">Aportar</a></li>
+                <li><a (click)="navegarHacia('home')">Donar</a></li>
+                <li><a (click)="navegarHacia('home')">Hazte Socio</a></li>
+            </ul>
+        </li>
+        <li *ngIf="rol == 'directiva'" name="dropdown" (click)="abrirSubMenu(2)">
+            <div class="icon-link">
+                <a>
+                    <i class='bx bx-collection'></i>
+                    <span class="link-name">Gestionar</span>
+                </a>
+                <i class='bx bx-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link-name">Gestionar</a></li>
+                <li><a (click)="navegarHacia('private/gestion/mascotas')">Mascotas</a></li>
+                <li><a (click)="navegarHacia('private/gestion/educacion')">Educación</a></li>
+                <li><a (click)="navegarHacia('private/gestion/eventos')"> Eventos</a></li>
+            </ul>
+        </li>
+
+        <!-- <div class="networks-details">
+      <li><a href="#">
+        <i class='bx bxl-facebook' ></i>
+        <span class="link-name">Facebook</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link-name" href="#">Facebook</a></li>
+        </ul>
+      </li>
+      <li><a href="#">
+        <i class='bx bxl-whatsapp' ></i>
+        <span class="link-name">Whatsapp</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link-name" href="#">Whatsapp</a></li>
+        </ul>
+      </li>
+      <li><a href="#">
+        <i class='bx bxl-youtube' ></i>
+        <span class="link-name">Youtube</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link-name" href="#">Youtube</a></li>
+        </ul>
+      </li>
+      <li><a href="#">
+        <i class='bx bxl-instagram' ></i>
+        <span class="link-name">Instagram</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link-name" href="#">Instagram</a></li>
+        </ul>
+      </li>
+    </div> -->
+    </ul>
+
+    <div class="btn-content">
+        <i class='bx bx-arrow-to-left' (click)="cambiarSidebar()"></i>
+    </div>
+</div>

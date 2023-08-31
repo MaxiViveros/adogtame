@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-4 mt-5">
+    <div class="card">
+      <div class="card-header">
+        <span>Imagenes</span>
+      </div>
+      <div class="card-body">
+        <div appNgFiles [files]="files" (mouseOver)="isOverDrop=$event" [ngClass]="{'file-over': isOverDrop}" class="drop-zone">
+          <h4>Arrastra tus imagenes aquí</h4>
+          <!--<img src="/assets/images/cloud.png" alt="">-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h4>Imagenes para subir</h4>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <!--<th>Size</th>-->
+            <th>% de carga</th>
+            <th>Imagen</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let file of files">
+            <td>{{file.name}}</td>
+            <!--<td>{{file.size / 1024 / 1024 | number: ".2.2"}} MB</td>-->
+            <td *ngIf="file.uploadPercent | async as uploadPercent">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [ngStyle]="{width: uploadPercent + '%'}">
+                  {{uploadPercent | number : "1.0-0"}} %
+                </div>
+              </div>
+            </td>
+            <td *ngIf="file.downloadURL | async as downloadURL">
+              <a [href]="downloadURL" target="_blank">Ver</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="container-buttons">
+          <button pButton pRipple type="submit" label="Borrar" class="p-button-rounded p-button-danger p-button-sm" (click)="files = []"></button>
+          <button pButton pRipple type="submit" label="Subir" class="p-button-rounded p-button-sm" (click)="onUpload(itemUpload)" [disabled]="files.length == 0"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

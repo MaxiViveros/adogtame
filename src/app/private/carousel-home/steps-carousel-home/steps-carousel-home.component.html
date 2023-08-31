@@ -1,0 +1,27 @@
+<p-steps  [model]="items" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+<ng-container *ngIf="activeIndex === 0 ; then imagesUpload"></ng-container>
+<ng-container *ngIf="activeIndex === 1 ; then review"></ng-container>
+
+<ng-template #imagesUpload>
+  <app-upload-image [folderName]="folderName" (isUploadEvent)="isUploadFiles($event)" ></app-upload-image>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="nextPageImages()" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+  </div>
+</ng-template>
+
+
+<ng-template #review>
+  <app-carousel-mascotas [folderName]="folderName" [imagesList]="listOfImages"></app-carousel-mascotas>
+  <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+</ng-template>
+
+<p-dialog header="Sin imagenes subidas 😟" [(visible)]="displayNotUploadImages" [style]="{width: '30vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false">
+  <div class="mb-3">
+    <label class="form-label">Atención: aún no has subido ninguna imágen</label>
+  </div>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" type="submit" label="Subir" class="p-button-rounded p-button-sm" (click)="notContinue()"></button>
+    <button pButton pRipple style="margin: 10px" type="submit" label="Continuar de todas formas" class="p-button-rounded p-button-danger p-button-sm" (click)="continueAnyway()"></button>
+  </div>
+</p-dialog>

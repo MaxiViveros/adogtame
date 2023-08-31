@@ -1,0 +1,140 @@
+<p-toast></p-toast>
+<p-steps *ngIf="displayEdit" [model]="itemsForEdit" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+<p-steps *ngIf="displayAdd" [model]="itemsForNew" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+
+<!--ADD EVENT-->
+<ng-container *ngIf="activeIndex === 0 && displayEdit; then dataFormEdit"></ng-container>
+<ng-container *ngIf="activeIndex === 1 && displayEdit; then uploadImages"></ng-container>
+<ng-container *ngIf="activeIndex === 2 && displayEdit; then images"></ng-container>
+<ng-container *ngIf="activeIndex === 3 && displayEdit; then confirmation"></ng-container>
+<!--EDIT EVENT-->
+<ng-container *ngIf="activeIndex === 0 && displayAdd; then dataForm"></ng-container>
+<ng-container *ngIf="activeIndex === 1 && displayAdd; then confirmation"></ng-container>
+
+<ng-template #dataForm>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmitAddEvent()" novalidate style="text-align: left;">
+    <div class="mb-3">
+      <label class="form-label">Titulo del evento</label>
+      <input formControlName="titulo" type="text" class="form-control" required>
+      <div *ngIf="!eventForm.value.titulo">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descripción del evento</label>
+      <input formControlName="descripcion" type="text" class="form-control" required>
+      <div *ngIf="!eventForm.value.descripcion">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Fecha de inicio</label> <br>
+      <input formControlName="fechaInicio" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Fecha de termino</label> <br>
+      <<input formControlName="fechaFin" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Hora</label> <br>
+      <<input formControlName="hora" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Link de video</label> <br>
+      <input formControlName="linkVideo" type="text" class="form-control" required>
+      <div *ngIf="!eventForm.value.linkVideo">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+  </form>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <button pButton pRipple style="margin: 10px" (click)="nextPage(eventForm)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+  </div>
+</ng-template>
+
+<ng-template #confirmation>
+  <div class="mb-3" style="text-align: center">
+    <label class="form-label">Desea guardar este evento?</label>
+  </div>
+  <div class="container button-confirmation">
+    <button pButton pRipple style="margin: 10px" type="button" label="Confirmar" class="p-button-rounded p-button-sm" (click)="saveEventData()"></button>
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-secondary p-button-sm"></button>
+  </div>
+</ng-template>
+
+<ng-template #dataFormEdit>
+  <form [formGroup]="eventFormEdit" (ngSubmit)="onSubmitAddEvent()" novalidate style="text-align: left;">
+    <div class="mb-3">
+      <label class="form-label">Titulo del evento</label>
+      <input formControlName="titulo" type="text" class="form-control" required>
+      <div *ngIf="!eventFormEdit.value.titulo">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descripción del evento</label>
+      <input formControlName="descripcion" type="text" class="form-control" required>
+      <div *ngIf="!eventFormEdit.value.descripcion">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Fecha de inicio</label> <br>
+      <input formControlName="fechaInicio" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Fecha de termino</label> <br>
+      <input formControlName="fechaFin" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Hora</label> <br>
+      <input formControlName="hora" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="basic">Link de video</label><br>
+      <input formControlName="linkVideo" type="text" class="form-control" required>
+      <div *ngIf="!eventFormEdit.value.linkVideo">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+  </form>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <button pButton pRipple style="margin: 10px" (click)="nextPage(eventFormEdit)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+  </div>
+</ng-template>
+
+<ng-template #uploadImages>
+  <app-upload-image [folderName]="nameFolderEventsImages" [eventSelectedToUpload]="eventSelectedToEdit" (isUploadEvent)="isUploadFiles($event)" ></app-upload-image>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPageImages()" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #images>
+  <app-carousel-mascotas [imagesList]="listOfImages" [eventSelected]="eventSelectedToEdit" [folderName]="nameFolderEventsImages"></app-carousel-mascotas>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPage(eventFormEdit)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<p-dialog header="Sin imagenes subidas" [(visible)]="displayNotUploadImages" [style]="{width: '30vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false">
+  <div class="mb-3">
+    <label class="form-label">Atención: aún no has subido ninguna imágen</label>
+  </div>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" type="submit" label="Subir" class="p-button-rounded p-button-sm" (click)="notContinue()"></button>
+    <button pButton pRipple style="margin: 10px" type="submit" label="Continuar de todas formas" class="p-button-rounded p-button-danger p-button-sm" (click)="continueAnyway()"></button>
+  </div>
+</p-dialog>
+

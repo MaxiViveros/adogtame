@@ -1,0 +1,95 @@
+<div class="card" style="justify-content: center">
+  <h2 style="text-align: center" class="mb-3">🏥 Veterinarias</h2>
+  <app-maps></app-maps>
+  <div class="row px-2" *ngIf="loading">
+    <div *ngFor="let veterinaria of listVets" @fadeIn class="col-lg-4 p-0">
+      <div class="card">
+        <div
+          class="d-flex justify-content-start align-items-center mb-2"
+          style="width: fit-content"
+        >
+          <p-skeleton shape="circle" size="3rem"></p-skeleton>
+        </div>
+
+        <div class="d-flex flex-column">
+          <div style="flex: 1" class="mb-5">
+            <p-skeleton
+              width="100%"
+              height="1.2rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+            <p-skeleton width="75%" height="1.2rem"></p-skeleton>
+          </div>
+          <div style="flex: 1" class="mt-4">
+            <p-skeleton width="60%" height="1rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="40%" height="1rem"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="!loading">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-auto" style="margin: 5px" *ngFor="let veterinaria of listVets">
+          <p-card [header]="veterinaria.nombre" [subheader]="veterinaria.direccion" [style]="{'width': '360px', 'background-color': '#FCFBFB'}" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+<!--
+              <img alt="Card" src="https://firebasestorage.googleapis.com/v0/b/adogtame-b45da.appspot.com/o/veterinarias%2Ffondo-vets.png?alt=media&token=c7ab45cb-e8e1-4a4c-bc67-34f59284fa82" style="width: 360px; height: 200px; border-radius: 5px">
+-->
+            </ng-template>
+            <p>📞 Teléfono: {{veterinaria.telefono}}</p>
+            <p>📧 Correo: {{veterinaria.correo}}</p>
+            <ng-template pTemplate="footer">
+              <button pButton pRipple type="button" icon="pi pi-link" label="Página Web" class="p-button-rounded p-button-info p-button-sm" (click)="clickWeb(veterinaria.paginaWeb)"></button>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!--<div class="row">
+    <div class="col">
+        <h5><b>Veterinaria Tecnovet</b></h5>
+        <img src="\assets\img\ejem.PNG" class="icono-vet">
+        <p><b> Av. Juan Luis Diez 2118, Curicó</b></p>
+        <a href="https://veterinariatecnovet.cl/"><button type="button" class="btn btn-danger btn-circle btn-sm">Pagina web</button></a>
+    </div>
+    <div class="col">
+        <h5><b>Veterinaria Francal</b></h5>
+        <div class="logo-vet">
+            <img src="\assets\img\francal.jpg" class="icono-vet">
+        </div>
+        <p><b>Av. Rauquén 1965, 1879, Curicó, Maule</b></p>
+        <a href="https://www.instagram.com/veterinaria_francal/?hl=es"><button type="button" class="btn btn-danger btn-circle btn-sm">Pagina web</button></a>
+    </div>
+    <div class="col">
+        <h5><b>Veterinaria Encina</b></h5>
+        <div class="logo-vet">
+            <img src="\assets\img\encina.jpg" class="icono-vet">
+        </div>
+        <p><b> Andrés Colon 1093, Curicó, Maule</b></p>
+        <a href="https://www.instagram.com/encina.dra/?hl=es"><button type="button" class="btn btn-danger btn-circle btn-sm">Pagina web</button></a>
+    </div>
+    <div class="col">
+        <h5><b>Veterinaria Santa Barbara</b></h5>
+        <div class="logo-vet">
+            <img src="\assets\img\santabarbara.jpg" class="icono-vet">
+        </div>
+        <p><b> Av. Circunvalación Paul Harris 0130, Villa Manuel Larrain</b></p>
+        <a href="https://www.facebook.com/Clinica-Vete-Santa-Barbara-710126162507165/"><button type="button" class="btn btn-danger btn-circle btn-sm">Pagina web</button></a>
+    </div>
+    <div class="col">
+        <h5><b>Veterinaria Agustina</b></h5>
+        <div class="logo-vet">
+            <img src="\assets\img\agustina.png" class="icono-vet">
+        </div>
+        <p><b> Pje. 56 937-951, Curicó, Maule</b></p>
+        <a href="https://www.facebook.com/clinicaveterinariagustina/"><button type="button" class="btn btn-danger btn-circle btn-sm">Pagina web</button></a>
+    </div>
+</div>-->

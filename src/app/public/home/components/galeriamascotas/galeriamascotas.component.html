@@ -1,0 +1,18 @@
+<div class="card" style="justify-content: center">
+  <div style="text-align: center" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+  </div>
+
+  <div class="card-body" *ngIf="!loading">
+    <p-carousel [value]="listOfImages" [numVisible]="1" [numScroll]="1" [circular]="true"  id="hola" [autoplayInterval]="7000">
+      <ng-template let-image pTemplate="item">
+        <img style="border-radius: 15px" src="{{image.url}}" class="img-fluid homeImage" />
+      </ng-template>
+    </p-carousel>
+  </div>
+
+</div>
+
+
+
+

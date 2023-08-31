@@ -1,0 +1,102 @@
+<div class="mb-3 mt-3 cardTabla">
+  <div class="card-header">
+    <h5 style="text-align:center">Eventos</h5>
+  </div>
+  <div class="card-body">
+    <p-table #dt1 [value]="listOfEvents" dataKey="titulo" responsiveLayout="scroll" styleClass="p-datatable-sm"
+             [rows]="10"
+             [showCurrentPageReport]="true" [rowHover]="true" [rowsPerPageOptions]="[5, 10, 25]" [loading]="loading"
+             [paginator]="true" [filterDelay]="0"
+             currentPageReportTemplate="Mostrando {first} a {last} de un total {totalRecords} elementos"
+             (sortFunction)="customSort($event)" [customSort]="true" [globalFilterFields]="['titulo']"
+    >
+      <ng-template pTemplate="header" let-columns="columns">
+        <tr>
+          <th pSortableColumn="titulo" style="text-align: center">
+            Titulo
+            <p-sortIcon field="titulo"></p-sortIcon>
+          </th>
+          <th pSortableColumn="fechaCreacion" style="text-align: center">
+            Fecha de creación
+          </th>
+          <th pSortableColumn="fechaInicio" style="text-align: center">
+            Fecha del evento
+          </th>
+          <th pSortableColumn="fechaFin" style="text-align: center">
+            Fecha de termino
+          </th>
+          <th pSortableColumn="linkVideo" style="text-align: center">
+            Link del video
+          </th>
+          <th pSortableColumn="Acción" style="text-align: center">
+            Acción
+          </th>
+        </tr>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col" style="text-align: center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              label="Agregar evento"
+              class="p-button-success p-button-sm"
+              icon="pi pi-plus"
+              (click)="addEvent()">
+            </button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-expanded="expanded">
+        <tr>
+          <td>
+            {{rowData.titulo}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.fechaCreacion}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.fechaInicio}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.fechaFin}}
+          </td>
+          <td style="text-align: center">
+            {{rowData?.linkVideo}}
+          </td>
+          <td style="text-align: center">
+            <div class="d-flex justify-content-center">
+              <button pButton pRipple type="button" icon="pi pi-pencil" styleClass="p-button-sm"
+                      class="p-button-rounded" (click)="editEvent($event,rowData)"></button>&nbsp;
+              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+                      (click)="showDeleteEvent(rowData)"></button>&nbsp;
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-dialog header="Agregar evento" [(visible)]="displayAddEvent" [style]="{width: '70vw'}" [modal]="true"
+            [maximizable]="false" [draggable]="false">
+    <app-steps-eventos [displayAdd]="displayAddEvent" (closeDialogEvent)="changeDisplaySteps($event)"></app-steps-eventos>
+  </p-dialog>
+
+  <p-dialog header="Eliminar evento" [(visible)]="displayDeleteEvent" [style]="{width: '70vw'}" [modal]="true"
+            [maximizable]="false"
+            [draggable]="false">
+    <div class="mb-3">
+      <label class="form-label">Desea eliminar este evento?</label>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="deleteEvent($event)">Confirmar</button>
+  </p-dialog>
+
+  <p-dialog header="Editar evento" [(visible)]="displayEditEvent" [style]="{width: '70vw'}" [modal]="true" [maximizable]="false" [draggable]="false">
+    <app-steps-eventos [eventSelectedToEdit]="eventToEdit" [eventFormEdit]="editForm" [displayEdit]="displayEditEvent" (closeDialogEvent)="changeDisplaySteps($event)" ></app-steps-eventos>
+  </p-dialog>
+
+</div>

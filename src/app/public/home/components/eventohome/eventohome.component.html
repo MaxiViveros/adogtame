@@ -1,0 +1,63 @@
+<div class="card" style="justify-content: center">
+  <h2 style="text-align: center" class="mb-3">📆 Proximos Eventos</h2>
+
+  <div class="row px-2" *ngIf="loading">
+    <div *ngFor="let article of eventList" class="col-lg-4 p-0">
+      <div class="card">
+        <div
+          class="d-flex justify-content-start align-items-center mb-2"
+          style="width: fit-content"
+        >
+          <p-skeleton shape="circle" size="3rem"></p-skeleton>
+        </div>
+
+        <div class="d-flex flex-column">
+          <div style="flex: 1" class="mb-5">
+            <p-skeleton
+              width="100%"
+              height="1.2rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+            <p-skeleton width="75%" height="1.2rem"></p-skeleton>
+          </div>
+          <div style="flex: 1" class="mt-4">
+            <p-skeleton width="60%" height="1rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="40%" height="1rem"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="!loading">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-auto" style="margin: 5px" *ngFor="let event of eventList">
+          <p-card [header]="event.titulo" [subheader]="event.descripcion" [style]="{'width': '360px', 'background-color': '#FCFBFB'}" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+              <img alt="Card" [src]="event.urlImage" style="width: 360px; height: 200px; border-radius: 5px">
+            </ng-template>
+            <p>🗓 Fecha: {{event.fechaInicio}}</p>
+            <p>🕘 Hora: {{event.hora}}</p>
+            <!--<p>Lugar: {{event.lugar}}</p>-->
+            <ng-template pTemplate="footer">
+              <button pButton pRipple type="button" icon="pi pi-info-circle" label="Info" class="p-button-rounded p-button-info p-button-sm" (click)="showMoreInfo(event)"></button>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog [header]="eventSelected?.titulo" [(visible)]="displayMoreInfo" [style]="{'width': '50vw', 'border-radius':'3%'}">
+    <h4>{{eventSelected?.descripcion}}</h4>
+    <p>🗓 Fecha: {{eventSelected?.fechaInicio}}</p>
+    <p>🕘 Hora: {{eventSelected?.hora}}</p>
+
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="displayMoreInfo=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+
+</div>
+

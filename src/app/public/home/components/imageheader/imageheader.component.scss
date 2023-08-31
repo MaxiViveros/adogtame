@@ -1,0 +1,46 @@
+.masthead {
+    height: 600px;
+    margin-left: 107px;
+    margin-right: 100px;
+    background-image: url("/assets/img/fondo-collage.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+h1,
+p {
+    color: white;
+}
+
+.btn-primary {
+    background-color: #ff5959;
+}
+
+@media screen and (max-width: 500px) {
+    .masthead {
+        height: 400px;
+        background-image: url("/assets/img/fondo-collage.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+    }
+    .col{
+        padding-top: 10%;
+    }
+    .lead {
+        visibility: hidden;
+        max-height: 10px;
+    }
+}
+
+.col{
+    flex: 0 0 auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: #f90000a6;
+    padding-bottom: 20px;
+    max-width: 80%;
+    margin-top: 100px;
+}

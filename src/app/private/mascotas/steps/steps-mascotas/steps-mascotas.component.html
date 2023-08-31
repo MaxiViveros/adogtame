@@ -1,0 +1,254 @@
+<p-toast></p-toast>
+
+
+<p-steps *ngIf="displayEdit" [model]="itemsForEdit" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+<p-steps *ngIf="displayAdd" [model]="itemsForNew" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+<!--TODO configurar imagenes al final para nuevas mascotas-->
+<!--CONDICIONALES PARA MOVERSE EN EL STEP-->
+<ng-container *ngIf="activeIndex === 0 && displayAdd; then dataForm"></ng-container>
+<ng-container *ngIf="activeIndex === 0 && displayEdit; then dataFormEdit"></ng-container>
+<!--<ng-container *ngIf="activeIndex === 1 && displayAdd; then uploadImages"></ng-container>-->
+<ng-container *ngIf="activeIndex === 1 && displayEdit; then uploadImagesEdit"></ng-container>
+<ng-container *ngIf="activeIndex === 2 && displayEdit; then imagesEdit"></ng-container>
+<ng-container *ngIf="activeIndex === 3 && displayEdit; then confirmation"></ng-container>
+<ng-container *ngIf="activeIndex === 1 && displayAdd; then confirmation"></ng-container>
+
+<!--#################INICIO STEP AGREGAR NUEVA MASCOTA PERDIDA####################-->
+<!--FORMULARIO PARA AGREGAR MASCOTA PERDIDA-->
+<ng-template #dataForm>
+  <form [formGroup]="lostPetForm" (ngSubmit)="onSubmitAddLostPet()" novalidate style="text-align: left;">
+    <div class="mb-3">
+      <label class="form-label">✏️ Nombre</label>
+      <input formControlName="nombre" type="text" class="form-control" required>
+      <div *ngIf="!lostPetForm.value.nombre">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">#️⃣ Edad (si no se sabe, dejar en 1)</label>
+      <input formControlName="edad" type="number" class="form-control" required>
+      <div *ngIf="!lostPetForm.value.edad">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🏷 Raza</label> <br>
+      <input formControlName="raza" type="text" class="form-control" required>
+      <div *ngIf="!lostPetForm.value.raza">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🚻 Sexo</label> <br>
+      <select id="sexo" class="form-control" formControlName="sexo" required>
+        <option>Macho</option>
+        <option>Hembra</option>
+      </select>
+      <div *ngIf="!lostPetForm.value.sexo">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🤔 Tipo de mascota</label> <br>
+      <select id="tipo" class="form-control" formControlName="tipo" required>
+        <option>Perro</option>
+        <option>Gato</option>
+        <option>Exotico</option>
+      </select>
+      <!--<input formControlName="tipo" type="text" class="form-control" required>-->
+      <div *ngIf="!lostPetForm.value.tipo">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🔖 Etiqueta</label> <br>
+      <select id="etiqueta" class="form-control" formControlName="etiqueta" required>
+        <option>Urgente</option>
+        <option>No Urgente</option>
+      </select>
+      <div *ngIf="!lostPetForm.value.etiqueta">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🕵🏻 Tipo De Caso</label> <br>
+      <select id="tipoCaso" class="form-control" formControlName="tipoCaso" required>
+        <option>interno</option>
+        <option>externo</option>
+      </select>
+      <div *ngIf="!lostPetForm.value.tipoCaso">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">📞 Contacto</label> <br>
+      <input formControlName="contacto" type="text" class="form-control" required>
+      <div *ngIf="!lostPetForm.value.contacto">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">👀 Observaciones</label> <br>
+      <input formControlName="observaciones" type="text" class="form-control" required>
+      <div *ngIf="!lostPetForm.value.observaciones">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+  </form>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <button pButton pRipple style="margin: 10px" (click)="nextPage(lostPetForm)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+  </div>
+</ng-template>
+
+<!--SUBIR IMAGENES DE NUEVA MASCOTA PERDIDA-->
+<!--TODO: Cuando se agrega una nueva mascota, no hay forma de obtener su ID ya que aún no se guarda-->
+<ng-template #uploadImages>
+  <app-upload-image [petSelectedToUpload]="lostPetForm.value" [folderName]="nameFolderImages" (isUploadEvent)="isUploadFiles($event)"></app-upload-image>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPageImages()" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+<!--#################FIN STEP AGREGAR NUEVA MASCOTA PERDIDA####################-->
+
+<!--#################INICIO STEP EDITAR MASCOTA PERDIDA####################-->
+<!--FORMULARIO PARA EDITAR MASCOTA PERDIDA-->
+<ng-template #dataFormEdit>
+  <form [formGroup]="formEdit" (ngSubmit)="onSubmitAddLostPet()" novalidate style="text-align: left;">
+    <div class="mb-3">
+      <label class="form-label">✏️ Nombre</label>
+      <input formControlName="nombre" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.nombre">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">#️⃣ Edad (si no se sabe, dejar en 1)</label>
+      <input formControlName="edad" type="number" class="form-control" required>
+      <div *ngIf="!formEdit.value.edad">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🏷 Raza</label> <br>
+      <input formControlName="raza" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.raza">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🚻 Sexo</label> <br>
+      <select id="sexo" class="form-control" formControlName="sexo" required>
+        <option>Macho</option>
+        <option>Hembra</option>
+      </select>
+      <div *ngIf="!formEdit.value.sexo">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🤔 Tipo de mascota</label> <br>
+      <select id="tipo" class="form-control" formControlName="tipo" required>
+        <option>Perro</option>
+        <option>Gato</option>
+        <option>Exótico</option>
+      </select>
+      <div *ngIf="!formEdit.value.tipo">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🔖 Etiqueta</label> <br>
+      <select id="etiqueta" class="form-control" formControlName="etiqueta" required>
+        <option>Urgente</option>
+        <option>No Urgente</option>
+      </select>
+      <div *ngIf="!formEdit.value.etiqueta">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">🕵🏻 Tipo De Caso</label> <br>
+      <select id="tipoCaso" class="form-control" formControlName="tipoCaso" required>
+        <option>interno</option>
+        <option>externo</option>
+      </select>
+      <div *ngIf="!formEdit.value.tipoCaso">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">📞 Contacto</label> <br>
+      <input formControlName="contacto" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.contacto">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="basic">👀 Observaciones</label> <br>
+      <input formControlName="observaciones" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.observaciones">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+  </form>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <button pButton pRipple style="margin: 10px" (click)="nextPage(formEdit)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+  </div>
+</ng-template>
+
+<!--SUBIR IMAGENES PARA EDITAR MASCOTA PERDIDA-->
+<ng-template #uploadImagesEdit>
+  <app-upload-image [petSelectedToUpload]="petSelectedToEdit" [folderName]="nameFolderImages" (isUploadEvent)="isUploadFiles($event)"></app-upload-image>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPageImages()" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<!--EDITAR IMAGENES EN EDITAR MASCOTA PERDIDA-->
+<ng-template #imagesEdit>
+  <app-carousel-mascotas [imagesList]="listOfImages" [petSelected]="petSelectedToEdit" [folderName]="nameFolderImages"></app-carousel-mascotas>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPage(formEdit)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+<!--#################FIN STEP EDITAR MASCOTA PERDIDA####################-->
+
+<!--CONFIRMAR SUBMIT-->
+<ng-template #confirmation>
+  <div class="container" style="height: 100rem ; align-items: center; display: flex; height: 300px; width: 200px;">
+    <h5>Desea guardar esta adopción?</h5>
+  </div>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="savePetData()" type="button" label="Guardar" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<p-dialog header="Sin imagenes subidas" [(visible)]="displayNotUploadImages" [style]="{width: '30vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false">
+  <div class="mb-3">
+    <label class="form-label">Atención: aún no has subido ninguna imágen</label>
+  </div>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" type="submit" label="Subir" class="p-button-rounded p-button-sm" (click)="notContinue()"></button>
+    <button pButton pRipple style="margin: 10px" type="submit" label="Continuar de todas formas" class="p-button-rounded p-button-danger p-button-sm" (click)="continueAnyway()"></button>
+  </div>
+</p-dialog>
+

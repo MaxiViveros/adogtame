@@ -1,0 +1,85 @@
+<nav class="navbar">
+  <a class="logo" (click)="navegarHacia('home')">
+    <img src="\assets\img\icon\adogtame-logo22.png" height="70px">
+  </a>
+  <input type="checkbox" id="toggler">
+  <label for="toggler"><i class="fa-solid fa-bars"></i></label>
+  <div class="menu">
+    <ul class="list">
+      <li>
+        <i class='bx bx-home-alt'></i>
+        <a (click)="navegarHacia('home')"> Home</a>
+      </li>
+      <li *ngIf="rol == 'directiva' && logged" class="dropdown">
+        <div class="dropdown">
+          <button class="dropbtn">
+            <i class='bx bx-collection'></i>
+            <a> Gestionar</a>
+          </button>
+        </div>
+        <div class="dropdown-content">
+          <a (click)="navegarHacia('private/gestion/mascotas')">Mascotas</a>
+          <a (click)="navegarHacia('private/gestion/mascotas-perdidas')">Mascotas Perdidas</a>
+          <a (click)="navegarHacia('private/gestion/educacion')">Educación</a>
+          <a (click)="navegarHacia('private/gestion/eventos')"> Eventos</a>
+          <a (click)="navegarHacia('private/gestion/veterinarias')"> Veterinarias</a>
+          <a (click)="navegarHacia('private/gestion/socios')"> Socios</a>
+          <a (click)="navegarHacia('private/gestion/carousel-home')"> Carousel Home</a>
+        </div>
+      </li>
+      <li>
+        <i class='bx bxs-dog'></i>
+        <a (click)="navegarHacia('mascotas')"> Mascotas</a>
+      </li>
+      <li class="dropdown">
+        <div class="dropdown">
+          <button class="dropbtn">
+            <i class='bx bx-news'></i>
+            <a> Novedades</a>
+          </button>
+          <div class="dropdown-content">
+      <li>
+        <a (click)="navegarHacia('eventos')"> Eventos</a>
+      </li>
+      <li>
+        <a (click)="navegarHacia('educacion')"> Educación</a>
+      </li>
+  </div>
+  </div>
+  </li>
+
+  <li>
+    <i class="fa-solid fa-hand-holding-heart"></i>
+    <a (click)="navegarHacia('donar')"> Donar</a>
+  </li>
+  <li>
+    <i class="fa-solid fa-paw"></i>
+    <a (click)="navegarHacia('nosotros')"> Nosotros</a>
+  </li>
+
+  <li class="dropdown">
+    <div *ngIf="logged">
+      <div class="dropdown">
+        <button class="dropbtn">
+          <i class='bx bx-user'></i>
+          <a> Mi Perfil</a>
+        </button>
+      </div>
+      <div class="dropdown-content">
+        <a (click)="perfil()">Perfil</a>
+        <a (click)="cerrarSesion()">Cerrar sesión</a>
+      </div>
+    </div>
+
+    <div *ngIf="!logged">
+      <div (click)="verLogin()">
+        <button class="dropbtn">
+          <i class='bx bx-user'></i>
+          <a>Iniciar Sesión</a>
+        </button>
+      </div>
+    </div>
+  </li>
+  </ul>
+  </div>
+</nav>

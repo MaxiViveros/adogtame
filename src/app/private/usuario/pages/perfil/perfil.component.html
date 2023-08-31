@@ -1,0 +1,72 @@
+<section>
+    <div class="container-xl px-4 mt-4">
+        <!-- Account page navigation-->
+        <nav class="nav nav-borders">
+            <a class="nav-link active ms-0" target="__blank">Perfil</a>
+            <a class="nav-link" target="__blank">Mis Mascotas</a>
+            <a class="nav-link" target="__blank">Mis Eventos</a>
+            <a class="nav-link" target="__blank">Ajustes</a>
+        </nav>
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            <div class="col-xl-4">
+                <!-- Profile picture card-->
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header">Imagen de Perfil</div>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image-->
+                        <img class="img-account-profile mb-2" src="./assets/images/perfil.jpg" alt="">
+                        <!-- Profile picture help block-->
+                        <div class="small font-italic text-muted mb-4">JPG o PNG no mayor a 5MB </div>
+                        <!-- Profile picture upload button-->
+                        <button class="btn btn-primary" type="button">Subir una nueva imagen</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-header">Detalles de la Cuenta</div>
+                    <div class="card-body">
+                        <form>
+                            <!-- Form Group (username)-->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1">Tipo de Cuenta: </label>
+                                    <label class="small mb-1" id="inputProfile">{{perfil}}</label>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputUsername">Nombre (¿Como quieres llamarte en nuestro sitio?)</label>
+                                <input class="form-control" id="inputUsername" type="text" placeholder="Ingresa tu nombre" value={{nombre}}>
+                            </div>
+                            <!-- Form Group (email address)-->
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputEmailAddress">Correo Electrónico</label>
+                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value={{email}} readonly>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (phone number)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputPhone">Teléfono (Opcional)</label>
+                                    <input class="form-control" id="inputPhone" type="tel" placeholder="Ingresa tu Teléfono" value="none">
+                                </div>
+                                <!-- Form Group (birthday)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputBirthday">Cumpleaños (Opcional)</label>
+                                    <input class="form-control" id="inputBirthday" type="text" name="Cumpleaños" placeholder="Ingresa tu Cumpleaños" value="06/10/1988">
+                                </div>
+                            </div>
+                            <!-- Save changes button-->
+                            <button class="btn btn-primary" type="button">Guardar Cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

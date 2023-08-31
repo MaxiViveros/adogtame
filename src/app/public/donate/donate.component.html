@@ -1,0 +1,121 @@
+<section>
+  <div>
+    <div class="row">
+      <div class="col-md-3 col-sm-4">
+        <app-dogoanimated></app-dogoanimated>
+      </div>
+      <div class="col-md-9 col-sm-2">
+        <p class="globo pos abajo-izquierda h2 mt-2 ml-3">
+          Aportes y Donaciones
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container2">
+  <div class="container py-2">
+    <article class="postcard light orange">
+      <a class="postcard__img_link">
+        <img class="postcard__img" src="assets/Somos/donativo/Image 3276.png" alt="Image Title"/>
+      </a>
+      <div class="postcard__text t-dark">
+        <h1 class="postcard__title orange"><a>Tu ayuda es importante</a></h1>
+        <div class="postcard__subtitle small">
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">Con tu ayuda podremos contar con medicamentos, vacunas, alimentos y todo lo
+          necesario para mantener a los animalitos en las mejores condiciones para encontrarles un hogar
+        </div>
+        <div class="grid buttons">
+          <p-button (click)="showDialog()" icon="pi pi-star" label="Hazte socio"></p-button>
+          <p-button (click)="showDialogDonacion()" icon="pi pi-heart" label="Haz una donación"></p-button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<p-dialog header="Datos nuevo socio" [(visible)]="displaySocio" [breakpoints]="{'960px': '75vw'}"
+          [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+  <div class="centrar">
+    <h4><strong>¡Bienvenido a Fundación Adogtame! Con socios como tú que nos apoyan económicamente podemos seguir
+      trabajando.</strong></h4>
+  </div>
+  <br>
+  <form [formGroup]="socio" (ngSubmit)="onSubmitAddSocio()" novalidate style="text-align: left;">
+
+    <div class="mb-3">
+      <label class="form-label">Nombre Socio ✏️</label>
+      <input formControlName="nombre" type="text" class="form-control" required>
+      <div *ngIf="!socio.value.nombre">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Correo Asociado 📫</label>
+      <input formControlName="correo" type="text" class="form-control" required>
+      <div *ngIf="!socio.value.correo">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Monto estimado mensual ✨</label>
+      <input formControlName="monto" type="text" class="form-control" required>
+      <div *ngIf="!socio.value.monto">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Número de Teléfono 📞 (que usa para WhatsApp sin el "+", ejemplo: 56912345678)</label>
+      <input formControlName="telefono" type="number" class="form-control" placeholder="56912345678" required>
+      <div *ngIf="!socio.value.telefono">
+        <small class="p-error">Incompleto</small>
+      </div>
+    </div>
+  </form>
+  <br>
+  <h5>*El monto es solo un estimado, mes a mes agradecemos todo aporte donado</h5>
+  <br>
+  <div class="toR">
+    <p-button (click)="onSubmitAddSocio()" label="Enviar Datos"></p-button>
+  </div>
+
+</p-dialog>
+
+<p-dialog [(visible)]="displayDonacion" [breakpoints]="{'960px': '95vw'}" [style]="{width: '80vw'}" [draggable]="false"
+          [resizable]="false">
+
+  <div class="container2">
+    <div class="container py-2">
+      <article class="postcard light orange">
+        <a class="postcard__img_link">
+          <img class="postcard__img" src="assets/Somos/donativo/Image 1346.png" alt="Image Title"/>
+        </a>
+        <div class="postcard__text t-dark">
+          <h1 class="postcard__title2 orange"><a>Gracias por tu aporte</a></h1>
+          <div class="postcard__subtitle small">
+            <h5>Datos de la donacion</h5>
+          </div>
+          <div class="postcard__bar"></div>
+          <div class="postcard__preview-txt2"><strong>Cuenta Rut Banco Estado</strong></div>
+          <div class="postcard__preview-txt2"><strong>19.503.583-5</strong></div>
+          <div class="postcard__preview-txt2"><strong>María José Castro</strong></div>
+          <div class="postcard__preview-txt2"><strong>adogtame.curico2015@gmail.com</strong></div>
+          <div class="postcard__preview-txt2"><strong>Asunto: Nombre + Apellido</strong></div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+</p-dialog>
+
+<p-dialog header="❌ Error al verificar número teléfonico" [(visible)]="displayNotValidNumber" [breakpoints]="{'960px': '95vw'}" [style]="{width: '40vw'}" [draggable]="false"
+          [resizable]="false">
+
+  <div class="container2">
+    <h3>Número invalido, por favor ingrese otra vez en este formato: 56912345678</h3>
+  </div>
+
+</p-dialog>

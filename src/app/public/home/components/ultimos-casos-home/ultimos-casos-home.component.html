@@ -1,0 +1,84 @@
+<p-progressSpinner
+    [style]=
+        "{width: '100px',
+        height: '100px',
+        left: '48%'}"
+    styleClass="custom-spinner"
+    strokeWidth="8"
+    fill="var(--surface-ground)"
+    animationDuration="1s"
+    *ngIf="visibleSpinner"
+    >
+</p-progressSpinner>
+
+<p-carousel [value]="listOfImagesPetSelected" *ngIf="visible2" [circular]="true"  [responsiveOptions]="responsiveOptions" styleClass="custom-carousel">
+    <ng-template let-an pTemplate="item">
+      <div class="container">
+        <div class="card-wrapper">
+            <div class="card profile-two" style="border-radius: 15px">
+                <div class="card-image profile-img--two">
+                    <img
+                        id="img"
+                        [src]="an.url"
+                        alt="profile two"
+                        class="img-fluid"
+                    />
+                </div>
+
+                <ul class="social-icons">
+                    <li>
+                        <a (click)="viewDialogNota($event,an)" >
+                            <i class="fas fa-paw"></i>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="details jane">
+                    <h2>{{an.pet.nombre}}<br />
+                        <span class="job-title">{{an.pet.raza}}</span>
+                        <span class="job-title parrafoD">{{an.pet.edad}} años</span>
+                    </h2>
+                </div>
+          </div>
+        </div>
+        <!-- END box wrapper -->
+
+      </div>
+      <!-- END container -->
+
+
+    </ng-template>
+
+</p-carousel>
+<p-dialog header="Más informacion de la mascota"[(visible)]="displayNota" [style]="{width: '80vw'}" [modal]="true" [maximizable]="false">
+    <h3>Datos de la mascota</h3>
+    <div class="fichaDatos">
+        <h4>Nombre: {{noteSelected?.pet.nombre}}</h4>
+        <h4>Raza: {{noteSelected?.pet.raza}}</h4>
+        <h4>Edad: {{noteSelected?.pet.edad}}</h4>
+        <h4>Sexo: {{noteSelected?.pet.sexo}}</h4>
+
+    </div>
+    <h3>Más imagenes:</h3>
+
+    <div class="flex-container">
+        <div class="child h-100" *ngFor="let an of listOfImagesPetSelected2">
+
+                <img
+                    id="img"
+                    [src]="an.url"
+                    alt="profile two"
+                    class="img-fluid flex-md-grow-1 img-adaptation"
+                    width="400px"
+                    height="200px"
+
+                />
+
+        </div>
+    </div>
+    <br>
+    <a [href]="noteSelected?.cuestionario" target="_blank">
+        <p-button> Formulario Adopcion </p-button>
+    </a>
+</p-dialog>

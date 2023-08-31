@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Niconne&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root{
+  /* Colores */
+  --primary-color: #0e4bf1;
+  --panel-color: #ffba59fe;
+  --subpanel-color: #ffba59d1;
+  --text-color: #FFF;
+  --black-light-color: #707070;
+  --border-color: #e6e5e5;
+  --toggle-color: #DDD;
+  --box1-color: #4dA3FF;
+  --box2-color: #FFE6AC;
+  --box3-color: #E7D1FC;
+  --title-icon-color: #fff;
+
+  /* Transiciones */
+  --tran-05: all 0.5s ease;
+  --tran-04: all 0.4s ease;
+  --tran-03: all 0.3s ease;
+  --tran-02: all 0.2s ease;
+}

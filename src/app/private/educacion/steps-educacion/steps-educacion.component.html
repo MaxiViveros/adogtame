@@ -1,0 +1,130 @@
+<p-toast></p-toast>
+<p-steps *ngIf="displayEdit" [model]="itemsForEdit" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+<p-steps *ngIf="displayAdd" [model]="itemsForNew" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+
+<ng-container *ngIf="activeIndex === 0 && displayAdd; then dataForm"></ng-container>
+<ng-container *ngIf="activeIndex === 1 && displayAdd; then confirmation"></ng-container>
+<ng-container *ngIf="activeIndex === 0 && displayEdit; then dataEditForm"></ng-container>
+<ng-container *ngIf="activeIndex === 1 && displayEdit; then uploadImages"></ng-container>
+<ng-container *ngIf="activeIndex === 2 && displayEdit; then images"></ng-container>
+<ng-container *ngIf="activeIndex === 3 && displayEdit; then confirmation"></ng-container>
+
+<ng-template #dataForm>
+  <form [formGroup]="articleForm" novalidate style="text-align: left;">
+    <div class="mb-3">
+      <label class="form-label">Titulo</label>
+      <input formControlName="titulo" type="text" class="form-control" required>
+      <div *ngIf="!articleForm.value.titulo">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <input formControlName="descripcion" type="text" class="form-control" required>
+      <div *ngIf="!articleForm.value.descripcion">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Etiqueta</label>
+      <input formControlName="etiqueta" type="text" class="form-control" required>
+      <div *ngIf="!articleForm.value.etiqueta">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Fuente</label>
+      <input formControlName="fuente" type="text" class="form-control" required>
+      <div *ngIf="!articleForm.value.fuente">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="container-buttons">
+      <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPage(articleForm)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #dataEditForm>
+  <form [formGroup]="formEdit" novalidate style="text-align: left;">
+    <div class="mb-3">
+      <label class="form-label">Titulo</label>
+      <input formControlName="titulo" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.titulo">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <input formControlName="descripcion" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.descripcion">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Etiqueta</label>
+      <input formControlName="etiqueta" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.etiqueta">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Fuente</label>
+      <input formControlName="fuente" type="text" class="form-control" required>
+      <div *ngIf="!formEdit.value.fuente">
+        <small class="p-error">Falta dato</small>
+      </div>
+    </div>
+    <div class="container-buttons">
+      <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPage(formEdit)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #uploadImages>
+  <app-upload-image [articleSelectedToUpload]="articleSelectedToEdit" [folderName]="nameFolderImages" (isUploadEvent)="isUploadFiles($event)"></app-upload-image>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPageImages()" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #images>
+  <app-carousel-mascotas [imagesList]="listOfImages" [articleSelected]="articleSelectedToEdit" [folderName]="nameFolderImages"></app-carousel-mascotas>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="nextPage(formEdit)" type="button" label="Siguiente" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #confirmation>
+  <div class="container" style="height: 100rem ; align-items: center; display: flex; height: 300px; width: 200px;">
+    <h5>¿Desea guardar este articulo educativo?</h5>
+  </div>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" (click)="cancel()" type="button" label="Cancelar" class="p-button-rounded p-button-danger p-button-sm"></button>
+    <div class="container-nextback">
+      <button pButton pRipple style="margin: 10px" (click)="backPage()" type="button" label="Atrás" class="p-button-rounded p-button-secondary p-button-sm"></button>
+      <button pButton pRipple style="margin: 10px" (click)="saveArticleData()" type="button" label="Guardar" class="p-button-rounded p-button-sm"></button>
+    </div>
+  </div>
+</ng-template>
+
+<p-dialog header="Sin imagenes subidas 😟" [(visible)]="displayNotUploadImages" [style]="{width: '30vw'}" [modal]="true" [maximizable]="false"
+          [draggable]="false" [closable]="false">
+  <div class="mb-3">
+    <label class="form-label">Atención: aún no has subido ninguna imágen</label>
+  </div>
+  <div class="container-buttons">
+    <button pButton pRipple style="margin: 10px" type="submit" label="Subir" class="p-button-rounded p-button-sm" (click)="notContinue()"></button>
+    <button pButton pRipple style="margin: 10px" type="submit" label="Continuar de todas formas" class="p-button-rounded p-button-danger p-button-sm" (click)="continueAnyway()"></button>
+  </div>
+</p-dialog>
